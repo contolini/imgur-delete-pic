@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Delete Imgur Pic</title>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    </head>
+    <body>
+        <div id="status">
+          Attempting to delete pic... <img src="http://i.imgur.com/Gj8Zl7M.gif" alt="Loading..." />
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>
+          $(function(){
+            var url = getUrl();
+            if ( !url ) {
+              msg('Nothing to see here.')
+            }
+            $.ajax({
+              url: url,
+              type: 'DELETE',
+              beforeSend: function ( xhr ) {
+                xhr.setRequestHeader('Authorization', 'Client-ID 414bfb360b18ba3');
+              },
+              success: msg('Hooray! It\'s been deleted!'),
+              error: msg('Oop -- there was an error deleting the image. Talk to Chris.')
+            });
+          });
+          function getUrl() {
+            return decodeURIComponent( window.location.hash.slice(1) ) | '';
+          }
+          function msg( text ) {
+            $('#status').text( text );
+          }
+        </script>
+    </body>
+</html>
