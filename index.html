@@ -16,9 +16,22 @@
           $(function(){
 
             var url = getUrl();
+
             if ( !url ) {
               $('#status').text('Nothing to see here.');
               return;
+            }
+
+            function getUrl() {
+              return decodeURIComponent( window.location.hash.slice(1) ) || '';
+            }
+            function yay() {
+              $('#status').text('Hooray! It\'s been deleted!');
+              $('button').hide();
+            }
+            function boo() {
+              $('#status').text('Oop -- there was an error deleting the image. Talk to Chris.');
+              $('button').hide();
             }
 
             $('button').css('display', 'block');
@@ -35,17 +48,6 @@
                 success: yay,
                 error: boo
               });
-              function getUrl() {
-                return decodeURIComponent( window.location.hash.slice(1) ) || '';
-              }
-              function yay() {
-                $('#status').text('Hooray! It\'s been deleted!');
-                $('button').hide();
-              }
-              function boo() {
-                $('#status').text('Oop -- there was an error deleting the image. Talk to Chris.');
-                $('button').hide();
-              }
 
             });
 
